@@ -15,3 +15,17 @@ TARGET_SUPPORTED_KTYPES:intel-x86 = "standard preempt-rt"
 KERNEL_VERSION_SANITY_SKIP = "1"
 SRCREV_machine:intel-x86 ?= "${AUTOREV}"
 SRCREV_meta:intel-x86 ?= "${AUTOREV}"
+
+# When "intel-qat" template is enabled, the out-of-tree QAT drivers will conflict with
+# the in-tree ones. So remove in-tree QAT drivers when using "feature/intel-qat".
+do_install:append:intel-x86() {
+	if [ -n "${@bb.utils.contains('WRTEMPLATE', 'feature/intel-qat', '1', '', d)}" ];then
+		rm -rf ${D}${nonarch_base_libdir}/modules/${KERNEL_VERSION}/kernel/drivers/crypto/intel/qat
+		if [ "`ls -A ${D}${nonarch_base_libdir}/modules/${KERNEL_VERSION}/kernel/drivers/crypto/intel`" = "" ];then
+			rm -rf ${D}${nonarch_base_libdir}/modules/${KERNEL_VERSION}/kernel/drivers/crypto/intel
+		fi
+		if [ "`ls -A ${D}${nonarch_base_libdir}/modules/${KERNEL_VERSION}/kernel/drivers/crypto`" = "" ];then
+			rm -rf ${D}${nonarch_base_libdir}/modules/${KERNEL_VERSION}/kernel/drivers/crypto
+		fi
+	fi
+}
