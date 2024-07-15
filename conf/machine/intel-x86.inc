@@ -86,3 +86,5 @@ do_image_wic[recrdeptask] += "do_bootimg"
 # DPDK enable and configuration
 COMPATIBLE_MACHINE:intel-x86:pn-dpdk = "${MACHINE}"
 COMPATIBLE_MACHINE:intel-x86:pn-dpdk-module = "${MACHINE}"
+
+NON_MULTILIB_RECIPES:append = " intel-cmt-cat"
