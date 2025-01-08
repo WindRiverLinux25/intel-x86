@@ -1,0 +1,41 @@
+From db85b1503db2fe645503b70caebc6edf9650dcaf Mon Sep 17 00:00:00 2001
+From: "Wong, Vincent Por Yin" <vincent.por.yin.wong@intel.com>
+Date: Thu, 30 Jan 2020 17:02:35 +0800
+Subject: [PATCH] net: xdp: add txtime field in xdp_desc in header file
+
+Upstream-Status: Inappropriate [embedded specific]
+
+Signed-off-by: Wong, Vincent Por Yin <vincent.por.yin.wong@intel.com>
+Signed-off-by: Yongxin Liu <yongxin.liu@windriver.com>
+---
+ include/uapi/linux/if_xdp.h       | 1 +
+ tools/include/uapi/linux/if_xdp.h | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/include/uapi/linux/if_xdp.h b/include/uapi/linux/if_xdp.h
+index 42ec5ddaab8d..b007f3e75850 100644
+--- a/include/uapi/linux/if_xdp.h
++++ b/include/uapi/linux/if_xdp.h
+@@ -156,6 +156,7 @@ struct xdp_desc {
+ 	__u64 addr;
+ 	__u32 len;
+ 	__u32 options;
++	__u64 txtime;
+ };
+ 
+ /* UMEM descriptor is __u64 */
+diff --git a/tools/include/uapi/linux/if_xdp.h b/tools/include/uapi/linux/if_xdp.h
+index 42ec5ddaab8d..b007f3e75850 100644
+--- a/tools/include/uapi/linux/if_xdp.h
++++ b/tools/include/uapi/linux/if_xdp.h
+@@ -156,6 +156,7 @@ struct xdp_desc {
+ 	__u64 addr;
+ 	__u32 len;
+ 	__u32 options;
++	__u64 txtime;
+ };
+ 
+ /* UMEM descriptor is __u64 */
+-- 
+2.46.2
+
