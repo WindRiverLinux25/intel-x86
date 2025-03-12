@@ -88,3 +88,5 @@ COMPATIBLE_MACHINE:intel-x86:pn-dpdk = "${MACHINE}"
 COMPATIBLE_MACHINE:intel-x86:pn-dpdk-module = "${MACHINE}"
 
 NON_MULTILIB_RECIPES:append = " intel-cmt-cat"
+
+PACKAGECONFIG:append:class-target:pn-mesa = " gallium-llvm"
