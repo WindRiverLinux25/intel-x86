@@ -6,12 +6,16 @@ To enable this feature, please add the following configuration parameter:
 
     --template=feature/intel-qat
 
-There are two QAT package providers, qat17 and qatlib. qat17 supports QAT
-device hardware version 1.7 and qatlib supports QAT gen4 and gen5 devices.
+There are three QAT package providers, qat17, qat20 and qatlib. qat17 supports QAT
+device hardware version 1.7. qat20 supports QAT device hardware version 2.0. qatlib
+supports QAT gen4 and gen5 devices.
 
 The default QAT support is using recipe qat17 in template.conf.
 User can change it by using the following settings.
 
+  PREFERRED_PROVIDER_virtual/qat = "qat20"
+  PREFERRED_PROVIDER_virtual/lib32-qat = "qat20"
+or
   PREFERRED_PROVIDER_virtual/qat = "qatlib"
   PREFERRED_PROVIDER_virtual/lib32-qat = "lib32-qatlib"
 
