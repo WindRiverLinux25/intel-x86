@@ -13,10 +13,12 @@ Table of Contents
 This BSP supports the following boards:
 
 	+ Intel NUC Platform: KabyLake-U Processor, Sunrise Point-LP PCH, (NUC7i5DNK1E)
+	+ Intel Ice Lake-SP: 3rd Gen Intel(R) Xeon(R) Scalable processor
 
 2. Change History
 =================
 
+	- 2025/05 (LINUXPG-2592) Add Ice Lake-SP support
 	- 2019/04 (US131896) Add NUC7i5DNK1E support
 	- 2017/11 (US102573) Add Intel NUC7i5BNH support
 
@@ -119,3 +121,93 @@ The following features are not supported or validated:
    No screen connect to eDP will cause the above error, mark it
    as un-validated feature.
 
+3.2 Intel Ice Lake-SP
+---------------------
+
+Ice Lake-SP is Intel's 3rd Generation of Xeon Scalable Processors which is
+built on 10nm process, as the successor to Cascade Lake-SP.
+
+3.2.1 Validated Board Info
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This BSP is only validated in the following environment. If you use this BSP
+in a different environment it may possibly have some issues.
+
+[BIOS info]
+	Vendor: Intel Corporation
+	Version: SE5C6200.86B.4018.D65.2010201151
+	Release Date: 10/20/2020
+
+[Processor Info]
+	Cpu family      : 6
+	Model           : 106
+	Model name      : Intel(R) Xeon(R) Platinum 8360Y CPU
+	Stepping        : 6
+
+[Board info]
+	 Intel Server System M50CYP Family
+
+3.2.2 Supported Features
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+	o Bus
+		+ PCI Express 4.0
+		+ I2C/SMBus: Intel Corporation C620 Series Chipset Family SMBus [8086:a1a3] (rev 0a)
+
+	o Network
+		+ Gb Ethernet: Intel Corporation I210 Gigabit Network Connection [8086:1533] (rev 03)
+		+ 10Gb Ethernet: Intel Corporation Ethernet Controller 10G X550T [8086:1563] (rev 01)
+
+	o USB
+		+ USB 3.0 Host: Intel Corporation C620 Series Chipset Family USB 3.0 xHCI Controller [8086:a1af] (rev 0a)
+
+	o Storage
+		+ SATA3: Intel Corporation C620 Series Chipset Family SATA Controller [AHCI mode] [8086:a182] (rev 0a)
+
+	o Multimedia
+		+ Graphics: ASPEED Technology, Inc. ASPEED Graphics Family [1a03:2000] (rev 41)
+
+	o Power Management
+		+ CPU Freq: ACPI P-state
+		+ CPU Idle: ACPI C-state
+		+ ACPI S0
+		+ ACPI S4
+
+	o Misc Devices
+		+ RTC: PC-style CMOS RTC
+		+ Input device
+			+ USB mouse & keyboard
+		+ HW Monitor: Intel CPU core temperature sensor
+
+	o NUMA (Non-Uniform Memory Access)
+
+	o TPM2.0
+
+	o EDAC
+
+	o Intel QuickAssit Technology
+		 + Intel (R) QuickAssist Adapter 8970
+
+	o Intel Optane Persistent Memory 200 Series Module (Code name: Barlow Pass)
+
+3.2.3 Unsupported Features
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following features are not supported and not validated.
+
+	x Hardware Watchdog
+	x ACPI S3
+
+1) You can see the following log during kernel booting.
+
+    iTCO_wdt: unable to reset NO_REBOOT flag, device disabled by hardware/BIOS.
+
+This means the watchdog is disabled by HW/BIOS, and thus not usable.
+
+2) ACPI S3 is not supported by BIOS.
+
+3.2.4 Note
+~~~~~~~~~~
+
+The default serial console port is ttyS1 at I/O 0x2f8. It may be different on your board
+due to different hardware or BIOS settings.
