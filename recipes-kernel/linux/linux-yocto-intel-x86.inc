@@ -12,10 +12,6 @@ KERNELLOADEREXTENSION:append:intel-x86-64 = " kernel-grub"
 
 TARGET_SUPPORTED_KTYPES:intel-x86 = "standard preempt-rt"
 
-KERNEL_VERSION_SANITY_SKIP = "1"
-SRCREV_machine:intel-x86 ?= "${AUTOREV}"
-SRCREV_meta:intel-x86 ?= "${AUTOREV}"
-
 # When using qat17 or qat20 as the provider of virtual/qat, the out-of-tree QAT drivers will conflict
 # with the in-tree ones. So remove in-tree QAT drivers when using qat17 or qat20 in template feature/intel-qat.
 do_install:append:intel-x86() {

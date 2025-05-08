@@ -60,7 +60,6 @@ XSERVER ?= "xserver-xorg \
 	   matchbox-wm"
 
 PREFERRED_PROVIDER_libglu = "libglu"
-PREFERRED_VERSION_virtual/mesa = "17.1.5"
 
 PREFERRED_PROVIDER_virtual/kernel ??= "linux-yocto"
 PREFERRED_VERSION_linux-yocto ?= "6.12%"
