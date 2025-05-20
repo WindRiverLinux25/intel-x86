@@ -17,7 +17,7 @@ User can change it by using the following settings.
   PREFERRED_PROVIDER_virtual/lib32-qat = "qat20"
 or
   PREFERRED_PROVIDER_virtual/qat = "qatlib"
-  PREFERRED_PROVIDER_virtual/lib32-qat = "lib32-qatlib"
+  PREFERRED_PROVIDER_virtual/lib32-qat = "qatlib"
 
 #@TYPE: Wrtemplate
 #@NAME: intel-qat
