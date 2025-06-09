@@ -25,3 +25,6 @@ do_install:append:intel-x86() {
 		fi
 	fi
 }
+
+# Set the maximum supported CPU count to 512
+KERNEL_FEATURES:append:intel-x86-64 = "cfg/cpu_nr_512.scc"
