@@ -13,10 +13,13 @@ Table of Contents
 This BSP supports the following boards:
 
 	+ Intel Ice Lake-SP: 3rd Gen Intel(R) Xeon(R) Scalable processor
+	+ Intel Idaville LCC: Intel Xeon D Processors, Ice Lake-D SoC, (IOTG: Brighton City)
+	+ Intel Idaville HCC: Intel Xeon D Processors, Ice Lake-D SoC, (Moro City)
 
 2. Change History
 =================
 
+	- 2025/09 (LINUXPG-2591) Add Icelake-D support
 	- 2025/05 (LINUXPG-2592) Add Ice Lake-SP support
 
 3. BSP Notes
@@ -112,3 +115,192 @@ This means the watchdog is disabled by HW/BIOS, and thus not usable.
 
 The default serial console port is ttyS1 at I/O 0x2f8. It may be different on your board
 due to different hardware or BIOS settings.
+
+3.2 Intel Idaville LCC(Ice-D SoC)
+---------------------------------
+
+Intel Idaville LCC featuring Intel Xeon D Processor, specifically at edge
+of Data Center and Network, with support of QAT, 50G throughput Ethernet.
+
+3.2.1 Validated Board Info
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This BSP is only validated in the following environment. If you use this BSP
+in a different environment it may possibly have some issues.
+
+[Board info]
+	Vendor: Intel Corporation
+	Platform: Intel Idaville Brighton City
+	SoC Codename: Ice Lake-D
+
+[BIOS info]
+	BIOS Version: IDVLCRB1.86B.0020.D60.2109070127
+
+[Processor info]
+	vendor_id: GenuineIntel
+	Core: 8
+	Thread: 16
+	ID: 0x000606C0
+	Stepping: 0
+	Microcode Rev: 0xfd000220
+
+3.2.2 Supported Features
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following BSP features are validated and supported on boards where
+the corresponding h/w features exist.
+
+	o Bus
+		+ PCI/PCI-Express
+		+ I2C/SMBus:
+			+ System peripheral [0880]: Intel Corporation Device [8086:18ac] (rev 11)
+			+ SMBus [0c05]: Intel Corporation Device [8086:18df] (rev 11)
+
+	o Network
+		+ Intel Ethernet on board:
+			+ Intel Corporation I210 Gigabit Network Connection [8086:1533] (rev 03)
+		+ Intel 1xQSFP28 and 4xSFP28 NIC
+			+ Intel(R) Ethernet Connection E823-L for QSFP [8086:151d]
+			+ Intel(R) Ethernet Connection E823-L for SFP [8086:124d]
+
+	o USB
+		+ USB 3.0 XHCI controller:
+			+ USB controller [0c03]: Intel Corporation Device [8086:18d0] (rev 11)
+
+	o Storage
+		+ SATA:
+			+ SATA controller [0106]: Intel Corporation Device [8086:18c2] (rev 11)
+			+ MiniSAS x8
+		+ MMC: SD Host controller [0805]: Intel Corporation Device [8086:18db] (rev 11)
+
+	o Multimedia
+		+ Graphics:
+			+ ASPEED Technology, Inc. ASPEED Graphics Family [1a03:2000] (rev 41) (prog-if 00 [VGA controller])
+
+	o Misc Devices
+		+ UART: 8250/16550A compatible serial port
+			+ Serial controller [0700]: Intel Corporation Device [8086:18d8] (rev 11)
+		+ Input device
+			+ USB mouse & keyboard
+
+	o Intel QuickAssit Technology
+		+ Co-processor [0b40]: Intel Corporation Device 2xxx [8086:18ee]
+
+3.2.3 Unsupported Features
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following features are not supported and not validated:
+
+	x watchdog
+	x S3/S4
+
+1) Watchdog is not supported because of BIOS issue.
+2) For S3/S4, Intel has no plan to support it on this board.
+
+3.2.4 Note
+~~~~~~~~~~
+
+The default serial console port is ttyS4 at MMIO 0x91688000. It may be different on your board
+due to different hardware or BIOS settings.
+
+3.2.5 Known Issue
+~~~~~~~~~~~~~~~~~
+See Common Known Issues 1).
+
+3.3 Intel Idaville HCC(Ice-D SoC)
+---------------------------------
+
+Intel Idaville HCC featuring Intel Xeon D Processor, specifically at edge
+of Data Center and Network, with support of QAT, 100G throughput Ethernet.
+
+3.3.1 Validated Board Info
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This BSP is only validated in the following environment. If you use this BSP
+in a different environment it may possibly have some issues.
+
+[Board info]
+	Vendor: Intel Corporation
+	Platform: Intel Idaville Moro City
+	SoC Codename: Ice Lake-D
+
+[BIOS info]
+	BIOS Version: IDVLCRB1.86B.0021.D41.2112031014
+
+[Processor info]
+	vendor_id: GenuineIntel
+	model name: Intel(R) Xeon(R) D-2753NT CPU @ 2.00GHz
+	Core: 12
+	Thread: 24
+	ID: 0x000606C1
+	Stepping: 1
+	Microcode Rev: 0x1000150
+
+3.3.2 Supported Features
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+	o Bus
+		+ PCI/PCI-Express
+		+ I2C/SMBus:
+			+ System peripheral [0880]: Intel Corporation Device [8086:18ac] (rev 11)
+			+ SMBus [0c05]: Intel Corporation Device [8086:18df] (rev 11)
+
+	o Network
+		+ Intel Ethernet:
+			+ Intel Corporation Ethernet Controller X710 for 10GBASE-T [8086:15ff] (rev 02)
+		+ Intel 2xQSFP28
+			+ Intel Corporation Ethernet Connection E823-L for backplane [8086:124c]
+
+	o USB
+		+ USB 3.0 XHCI controller:
+			+ USB controller [0c03]: Intel Corporation Device [8086:18d0] (rev 11)
+
+	o Storage
+		+ SATA:
+			+ SATA controller [0106]: Intel Corporation Device [8086:18c2] (rev 11)
+
+	o Multimedia
+		+ Graphics:
+			+ ASPEED Technology, Inc. ASPEED Graphics Family [1a03:2000] (rev 41) (prog-if 00 [VGA controller])
+
+	o Misc Devices
+		+ UART: 8250/16550A compatible serial port
+			+ Serial controller [0700]: Intel Corporation Device [8086:18d8] (rev 11)
+		+ Input device
+			+ USB mouse & keyboard
+		+ watchdog: Intel TCO WatchDog Timer
+
+	o Intel QuickAssit Technology
+		+ Co-processor [0b40]: Intel Corporation C4xxx Series QAT [8086:18a0]
+
+3.3.3 Unsupported Features
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following features are not supported and not validated:
+
+	x S3/S4
+
+For S3/S4, Intel has no plan to support it on this board.
+
+3.3.4 Note
+~~~~~~~~~~
+
+The default serial console port is ttyS4 at MMIO 0x91308000. It may be different on your board
+due to different hardware or BIOS settings.
+
+3.3.5 Known Issue
+~~~~~~~~~~~~~~~~~
+See Common Known Issues 1).
+
+4. Common Known Issues
+======================
+
+1) Engineer Samples of Intel Ethernet Adapter sometimes don't have valid MAC addresses, like
+
+    root@intel-x86-64:~# ifconfig | grep ether
+            ether 00:00:00:00:01:00
+            ether 00:00:00:00:01:01
+            ether 00:00:00:00:01:02
+            ether 00:00:00:00:01:03
+
+Before performing network testing, ensure that valid MAC addresses are assigned to each interface.
