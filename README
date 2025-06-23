@@ -1136,19 +1136,37 @@ To enable this feature, please add the following template:
 
 5.18.1 Intel QAT configuration files
 ------------------------------------
-When the Acceleration software loads, it is configured based on settings in the
-platform-specific configuration files. The configuration files should be copied from
-/etc/conf_files to /etc directory.
+The configuration files in the /etc/conf_files directory for Intel QuickAssist Technology (QAT)
+are critical runtime configuration templates that define how QAT hardware accelerators initialize,
+allocate resources, and perform cryptographic/compression operations.
 
-• The name of the first configuration file for Intel® Communications Chipset 8925 to
-8955 Series devices is dh895xcc_dev0.conf.
-• The first configuration file for the Platform Controller Hub is c6xx_dev0.conf.
-• The first configuration file for Intel Atom® C3000 Processor SoC is
-c3xxx_dev0.conf.
-• The first configuration file for Intel ® Xeon® Processor D SoC is
-d15xx_dev0.conf.
+When the acceleration software loads, it is configured based on the settings in the platform
+specific configuration files.
 
-The second configuration file for the second QAT device is xxxx_dev2.conf, and so on.
+The configuration files are in the /etc directory. Specifically:
+
+• The name for the first configuration file for Intel QAT Version 2.0 devices is 4xxx_dev0.conf.
+• The name of the first configuration file for Intel Communications Chipset 8925 to 8955 Series
+  devices is dh895xcc_dev0.conf.
+• The first configuration file for the Intel C62x Chipset or Intel Xeon Processor D Family SoC
+  is c6xx_dev0.conf.
+• The first configuration file for Intel Atom C3000 Processor SoC is c3xxx_dev0.conf.
+• The first configuration file for other Intel Xeon Processor D SoC platforms is d15xx_dev0.conf.
+
+If more than one device of a given type is present, its name includes dev1, dev2, etc.
+
+The files are processed when the system boots. If changes are made to the configuration file, the accel-
+eration software must be stopped and restarted for the changes to take effect.
+
+    /etc/init.d/qat_service restart
+
+The software package includes multiple types of platform-specific configuration files. Depending on
+your installation options and SKU, a valid configuration file is copied to the /etc directory. If your
+system has more than one type of hardware device or SKU, verify that the correct configuration files
+were copied.
+
+The software package has been validated with the default configuration files. Changes to the configuration
+files could have adverse effects.
 
 5.18.2 Kernel driver modules
 ----------------------------
@@ -1182,7 +1200,35 @@ $ cpa_sample_code signOfLife=1
 For more details, please refer to Intel QAT documentations released by Intel.
 https://01.org/intel-quickassist-technology
 
-5.18.5 SR-IOV on QAT devices
+5.18.5 Different QAT software packages
+--------------------------------------
+There are three different QAT software pakcages can support different QAT hardware, qat17,
+qat20 and qatlib.
+
+1) qat17 supports Hardware Version 1.x, including qat hw 1.8. It is the package for the
+following platforms.
+
+• Intel Communications Chipset 8925 to 8955 Series (formerly Coleto Creek)
+• Intel C62x Chipset (formerly Lewisburg)
+• Intel QAT Adapter 8960 & 8970 (formerly Lewis Hill)
+• Intel Atom C3000 Processor Family (formerly Denverton)
+• Intel Xeon D Processor Family (formerly Broadwell-DE)
+• Intel Xeon Processor D-2100 (formerly Skylake-D)
+• Intel Atom Processor P5000 Series (formerly Snow Ridge)
+• Intel Xeon Processor D-1700 Series (formerly Ice Lake D)
+• Intel Xeon Processor D-2700 Series (formerly Ice Lake D)
+
+2) qat20 supports Hardware Version 2.0. It is the right package for the following platform.
+
+• 4th Generation Intel Xeon Scalable Processor (formerly Sapphire Rapids)
+
+3) qatlib is exclusively a user-space library that interfaces with the QAT driver in the
+Linux kernel source tree. It supports the following devices.
+
+• 4xxx, 401xx and 402xx (QAT GEN 4 devices)
+• 420xx (QAT GEN 5 devices)
+
+5.18.6 SR-IOV on QAT devices
 ----------------------------
 SR-IOV(Single-Root Input/Output Virtualization) enables the Linux operating system
 to create multiple VFs(virtual functions) on a single Intel QAT acceleration device to
@@ -1207,7 +1253,7 @@ For example, c6xx_dev0vf.conf is for the first VF QAT device.
 Before starting QAT service, run"echo "SRIOV_ENABLE=1" > /etc/default/qat"
 one time or run "export SRIOV_ENABLE=1" everytime.
 
-5.18.6 Note
+5.18.7 Note
 -----------
 1) If intel_iommu is enable, you must use SR-IOV, since PF (Physical Function) cannot
 be used with iommu enabled.
