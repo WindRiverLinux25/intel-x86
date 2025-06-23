@@ -1153,7 +1153,7 @@ The second configuration file for the second QAT device is xxxx_dev2.conf, and s
 5.18.2 Kernel driver modules
 ----------------------------
 All Intel QAT related kernel driver modules will be installed in
-"/lib/modules/<kernel version>/updates/drivers/crypto/qat
+"/lib/modules/<kernel version>/updates/drivers/crypto/qat"
 
 Please note that those drivers have dependency on driver uio and dh_generic.
 
@@ -1164,7 +1164,7 @@ start/stop/status/restart/shutdown qat devices.
 
 For example:
 
-$/etd/init.d/qat_service status
+$/etc/init.d/qat_service status
 
 Checking status of all devices.
 There is 3 QAT acceleration device(s) in the system:
