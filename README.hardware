@@ -17,10 +17,12 @@ This BSP supports the following boards:
 	+ Intel Idaville HCC: Intel Xeon D Processors, Ice Lake-D SoC, (Moro City)
 	+ Intel Sapphire Rapids: Intel Xeon(R) Platinum 8468H
 	+ Intel Harcuvar platform: Atom Processor, Denverton-NS SoC, (Harcuvar)
+	+ Intel Meteor Lake H: Intel(R) Core(TM) Ultra 7 155H processors
 
 2. Change History
 =================
 
+	- 2025/09 (LINUXPG-2690) Add Meteor Lake H support
 	- 2025/09 (LINUXPG-2590) Add Denverton-NS support
 	- 2025/09 (LINUXPG-2593) Add Sapphire Rapids support
 	- 2025/09 (LINUXPG-2591) Add Icelake-D support
@@ -473,6 +475,100 @@ When using ACPI S4, kernel cannot exit from hibernation and the terminal hangup 
 VGA controller Millennium G550. If you want to use ACPI S4, change another card or block probing the driver by adding
 "modprobe.blacklist=matroxfb_base" to boot parameters.
 
+3.6 Intel Meteor Lake H
+-----------------------
+
+Intel Meteor Lake is the first generation of Intel mobile processor to use a
+chiplet architecture, specifically at AI acceleration, with support of integrated
+NPU and GPU.
+
+3.6.1 Validated Board Info
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[BIOS info]
+	Vendor: Intel Corporation
+	BIOS Version: MTLPFWI1.R00.3292.D83.2307270921
+	Release Date: 07/27/2023
+
+[Processor info]
+	Codename	: MeteorLake ULT
+	vendor_id       : GenuineIntel
+	Core		: 16
+	ID		: 0xA06A4
+	Stepping	: C0
+	Microcode Rev	: 0x1A
+
+[Board info]
+	MTL-P DDR5 SODIMM SBS RVP
+
+3.6.2 Supported Features
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following BSP features are validated and supported.
+
+	o Bus
+		+ PCI-Express
+		+ SMBus:
+			+ Intel Corporation Meteor Lake-P SMBus Controller [8086:7e22] (rev 20)
+			+ Intel Corporation Meteor Lake-P Serial IO I2C Controller #0 [8086:7e78] (rev 20)
+		+ SPI:
+			+ Intel Corporation Meteor Lake-P SPI Controller [8086:7e23] (rev 20)
+
+	o Network
+		+ Intel Corporation Device [8086:550b] (rev 20)
+
+	o USB
+		+ Intel Corporation Meteor Lake-P USB 3.2 Gen 2x1 xHCI Host Controller [8086:7e7d] (rev 20)
+		+ Intel Corporation Meteor Lake-P Thunderbolt 4 USB Controller [8086:7ec0] (rev 10)
+		+ Intel Corporation Meteor Lake-P USB Device Controller [8086:7e7e] (rev 20)
+
+	o Storage
+		+ NVME: Sandisk Corp WD PC SN810 / Black SN850 NVMe SSD [15b7:5011] (rev 01)
+
+	o Multimedia
+		+ Graphics: Intel Corporation Meteor Lake-P [Intel Arc Graphics] [8086:7d55] (rev 08)
+			+ DP
+			+ eDP
+			+ DP Type C
+		+ Audio: Intel Corporation Meteor Lake-P HD Audio Controller [8086:7e28] (rev 20)
+			+ DP audio
+			+ DP Type C audio
+
+	o Thunderbolt
+		+ Intel Corporation Meteor Lake-P Thunderbolt 4 NHI #0 [8086:7ec2] (rev 10)
+		+ Intel Corporation Meteor Lake-P Thunderbolt 4 NHI #1 [8086:7ec3] (rev 10)
+
+	o Misc Devices
+		+ Input device
+			+ USB mouse & keyboard
+		+ Watchdog: ACPI WDAT Watchdog timer
+		+ RTC: CMOS RTC
+
+	o TPM2
+
+	o Power Management
+		+ Suspend to IDLE: ACPI S0
+		+ Suspend to DISK: ACPI S4
+		+ CPU Freq: ACPI P-state
+		+ CPU Idle: ACPI C-state
+
+	o EDAC
+
+3.6.3 Unsupported Features
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following features are not supported and not validated.
+
+	x 3.5mm audio jack (only supported by Soundwire Audio)
+	x Intel Corporation Meteor Lake-P Gaussian & Neural-Network Accelerator [8086:7e4c] (rev 20)
+	x Intel Corporation Meteor Lake NPU [8086:7d1d] (rev 04)
+	x ACPI S3 (not supported by BIOS)
+
+3.6.4 Known Issues
+~~~~~~~~~~~~~~~~~~
+
+See 2) and 3) in Section of Common Known Issues.
+
 4. Common Known Issues
 ======================
 
@@ -485,3 +581,54 @@ VGA controller Millennium G550. If you want to use ACPI S4, change another card 
             ether 00:00:00:00:01:03
 
 Before performing network testing, ensure that valid MAC addresses are assigned to each interface.
+
+2) When configuring kdump, ensure the dump-capture kernel uses intel_iommu=off with the e1000e driver.
+Otherwise, the following error may occur:
+
+    e1000e 0000:80:1f.6 eth0: Detected Hardware Unit Hang:
+      TDH                  <0>
+      TDT                  <1>
+      next_to_use          <1>
+      next_to_clean        <0>
+    buffer_info[next_to_clean]:
+      time_stamp           <100260e30>
+      next_to_watch        <0>
+      jiffies              <10026e400>
+      next_to_watch.status <0>
+    MAC Status             <40080083>
+    PHY Status             <796d>
+    PHY 1000BASE-T Status  <3800>
+    PHY Extended Status    <3000>
+    PCI Status             <10>
+
+3) In dump-capture kernel, you may see the following call trace.
+
+    thunderbolt 0000:00:0d.2: interrupt for RX ring 0 is already disabled
+    WARNING: CPU: 8 PID: 177 at /drivers/thunderbolt/nhi.c:146 ring_interrupt_active+0x257/0x2b0 [thunderbolt]
+    Call Trace:
+     <TASK>
+     ? __pfx_pci_pm_runtime_suspend+0x10/0x10
+     tb_ring_stop+0xda/0x190 [thunderbolt]
+     tb_ctl_stop+0x40/0xb0 [thunderbolt]
+     tb_domain_runtime_suspend+0x36/0x50 [thunderbolt]
+     nhi_runtime_suspend+0x23/0x50 [thunderbolt]
+     pci_pm_runtime_suspend+0x62/0x150
+     __rpm_callback+0x49/0x160
+     ? __pfx_pci_pm_runtime_suspend+0x10/0x10
+     rpm_callback+0x60/0x70
+     ? __pfx_pci_pm_runtime_suspend+0x10/0x10
+     rpm_suspend+0xeb/0x610
+     ? __pfx_pci_pm_runtime_idle+0x10/0x10
+     rpm_idle+0x278/0x3e0
+     pm_runtime_work+0x97/0xd0
+     process_one_work+0x153/0x320
+     worker_thread+0x32a/0x460
+     ? __pfx_worker_thread+0x10/0x10
+     kthread+0xe5/0x120
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork+0x3e/0x60
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork_asm+0x1a/0x30
+     </TASK>
+
+To avoid it, use "module_blacklist=thunderbolt" with the capture kernel.
