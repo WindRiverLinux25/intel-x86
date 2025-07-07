@@ -18,10 +18,12 @@ This BSP supports the following boards:
 	+ Intel Sapphire Rapids: Intel Xeon(R) Platinum 8468H
 	+ Intel Harcuvar platform: Atom Processor, Denverton-NS SoC, (Harcuvar)
 	+ Intel Meteor Lake H: Intel(R) Core(TM) Ultra 7 155H processors
+	+ Intel Arrow Lake S: Intel(R) Core(TM) Ultra 7 265K processors
 
 2. Change History
 =================
 
+	- 2025/09 (LINUXPG-2689) Add Arrow Lake S support
 	- 2025/09 (LINUXPG-2690) Add Meteor Lake H support
 	- 2025/09 (LINUXPG-2590) Add Denverton-NS support
 	- 2025/09 (LINUXPG-2593) Add Sapphire Rapids support
@@ -568,6 +570,97 @@ The following features are not supported and not validated.
 ~~~~~~~~~~~~~~~~~~
 
 See 2) and 3) in Section of Common Known Issues.
+
+3.7 Intel Arrow Lake S
+----------------------
+
+Arrow Lake is the codename for Intel Core Ultra Series 2 processors. Arrow Lake S is
+based on the Intel Core Ultra 200S Series Processors.
+
+3.7.1 Validated Board Info
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[BIOS Info]
+	Vendor: Intel Corporation
+	Version: MTLSFWI1.R00.4334.D81.2408160355
+	Release Date: 08/16/2024
+
+[CPU Info]
+	vendor_id       : GenuineIntel
+	cpu family      : 6
+	model           : 198
+	model name      : Intel(R) Core(TM) Ultra 7 265K
+	stepping        : 2
+	microcode       : 0x110
+
+[Board Info]
+	ARL-H DDR5 RVP
+
+3.7.2 Supported Features
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+	o General Platform
+		+ perf: H/W based PMU
+
+	o Bus
+		+ PCI-Express
+		+ SMBus:
+			+ SMBus [0c05]: Intel Corporation Device [8086:7f23] (rev 10)
+
+	o Network
+		+ Intel Gigabit Ethernet
+			+ Ethernet controller [0200]: Intel Corporation Device [8086:550c] (rev 10)
+		+ WIFI
+			+ Intel(R) Wi-Fi 6E AX211 160MHz
+		+ Bluetooth
+			+ Intel Corp. AX211 Bluetooth
+
+	o USB
+		+ USB controller [0c03]: Intel Corporation Meteor Lake-P Thunderbolt 4 USB Controller [8086:7ec0] (rev 10)
+		+ USB controller [0c03]: Intel Corporation Device [8086:7f6e] (rev 10)
+
+	o Storage
+		+ NVME
+			+ Samsung Electronics Co Ltd NVMe SSD Controller PM9A1/PM9A3/980PRO
+
+	o Multimedia
+		+ Graphics:
+			+ VGA compatible controller [0300]: Intel Corporation Arrow Lake-U [Intel Graphics] [8086:7d67] (rev 06)
+				+ Mini DP
+				+ DP Type C
+				+ HDMI
+		+ Audio:
+			+ Multimedia audio controller [0401]: Intel Corporation Device [8086:7f50] (rev 10)
+				+ Legacy DP audio
+				+ Legacy DP Type C audio
+				+ Legacy audio via 3.5mm Jack
+
+	o Thunderbolt Type C
+		+ Intel Corporation Meteor Lake-P Thunderbolt 4 NHI #0 [8086:7ec2] (rev 10)
+
+	o Power Managemen
+		+ CPU Freq: ACPI P-state
+		+ CPU Idle: ACPI C-state
+		+ ACPI S0
+		+ ACPI S4
+
+	o TPM2.0
+
+	o Misc Devices
+		+ UART: 8250/16550A compatible serial port
+		+ RTC: PC-style CMOS RTC
+		+ Input device
+			+ USB mouse & keyboard
+		+ Watchdog: WDAT (Watchdog Action Table)
+		+ HW Monitor: Intel CPU core temperature sensor
+
+3.7.3 Unsupported Features
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following features are not supported and not validated.
+
+	x Intel Corporation Meteor Lake NPU [8086:7d1d] (rev 05)
+	x ACPI S3 (not supported by BIOS)
 
 4. Common Known Issues
 ======================
