@@ -395,6 +395,11 @@ Please read templates/feature/intel-qat/README first.
 
 2) Default console serial port is ttyS0 at I/O 0x3f8.
 
+3.4.5 Known Issue
+~~~~~~~~~~~~~~~~~
+
+See 4) in Section of Common Known Issues.
+
 3.5 Intel Harcuvar(Denverton-NS)
 --------------------------------
 
@@ -725,3 +730,10 @@ Otherwise, the following error may occur:
      </TASK>
 
 To avoid it, use "module_blacklist=thunderbolt" with the capture kernel.
+
+4) PMEM DAX (direct access to persistent memory) is not supported on RT kernel.
+Because DEV_DAX_PMEM has the following dependencies.
+
+    DEV_DAX_PMEM depends on LIBNVDIMM && NVDIMM_DAX && DEV_DAX
+    DEV_DAX depends on TRANSPARENT_HUGEPAGE
+    TRANSPARENT_HUGEPAGE depends on HAVE_ARCH_TRANSPARENT_HUGEPAGE && !PREEMPT_RT_FULL
