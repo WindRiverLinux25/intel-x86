@@ -667,6 +667,11 @@ The following features are not supported and not validated.
 	x Intel Corporation Meteor Lake NPU [8086:7d1d] (rev 05)
 	x ACPI S3 (not supported by BIOS)
 
+3.7.4 Known Issues
+~~~~~~~~~~~~~~~~~~
+
+See 2) and 3) in Section of Common Known Issues.
+
 4. Common Known Issues
 ======================
 
