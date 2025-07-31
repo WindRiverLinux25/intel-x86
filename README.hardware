@@ -125,6 +125,42 @@ This means the watchdog is disabled by HW/BIOS, and thus not usable.
 The default serial console port is ttyS1 at I/O 0x2f8. It may be different on your board
 due to different hardware or BIOS settings.
 
+3.1.5 Known Issue
+~~~~~~~~~~~~~~~~~
+
+A kernel NULL pointer dereference may occur during system hibernation (suspend-to-disk),
+triggered by the Linux ice driver, with the following call trace in log.
+
+    BUG: kernel NULL pointer dereference, address: 0000000000000048
+    #PF: supervisor read access in kernel mode
+    #PF: error_code(0x0000) - not-present page
+    PGD 0
+    Oops: Oops: 0000 [#1] PREEMPT_RT SMP NOPTI
+
+    Call Trace:
+     <TASK>
+     ice_vsi_set_napi_queues+0x4f/0xe0 [ice]
+     ice_resume+0xf4/0x220 [ice]
+     pci_pm_thaw+0x48/0xa0
+     ? __pfx_pci_pm_thaw+0x10/0x10
+     dpm_run_callback+0x47/0x160
+     device_resume+0xb8/0x1f0
+     async_resume+0x21/0x40
+     async_run_entry_fn+0x2d/0xb0
+     process_one_work+0x156/0x340
+     worker_thread+0x34a/0x480
+     ? __pfx_worker_thread+0x10/0x10
+     kthread+0xf7/0x120
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork+0x3e/0x60
+     ? __pfx_kthread+0x10/0x10
+     ret_from_fork_asm+0x1a/0x30
+     </TASK>
+
+No upstream fix is currently available. To mitigate this issue, unload the ice driver
+module using "modprobe -r ice" before initiating suspend-to-disk, then reload it with
+"modprobe ice" after system resume.
+
 3.2 Intel Idaville LCC(Ice-D SoC)
 ---------------------------------
 
