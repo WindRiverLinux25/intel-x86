@@ -612,7 +612,33 @@ The following features are not supported and not validated.
 3.6.4 Known Issues
 ~~~~~~~~~~~~~~~~~~
 
-See 2) and 3) in Section of Common Known Issues.
+1) See 2) and 3) in Section of Common Known Issues.
+
+2) When using SELoder in Secure Boot, the kernel may fail to boot due to an "X64 Exception Type - 0D (#GP - General Protection)" error.
+The root cause of this issue is still under investigation.
+
+To mitigate the problem, apply one of the following workarounds:
+
+a) Remove TPM support in grub-efi.
+Method 1: Delete the GRUB_TPM_MODULES line in the file meta-secure-core/meta-efi-secure-boot/recipes-bsp/grub/grub-efi-efi-secure-boot.inc
+before building the project.
+
+Method 2: Add the command "rmmod tpm" to grub.cfg, like
+
+ ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ |setparams 'Wind River Linux LTS 10.25.19.1 Sample EFI boot'                 |
+ |                                                                            |
+ |    savedefault                                                             |
+ |    set fallback=1                                                          |
+ |    rmmod tpm                                                               |
+ |    search --no-floppy --label --set=root boot                              |
+ |    linux /bzImage root=LABEL=root ro rootwait console=ttyS0,115200         |
+ |    initrd /initrd                                                          |
+ |                                                                            |
+ ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+b) Disable internal graphics in the BIOS.
+Intel Advanced Menu --> System Agent (SA) Configuration --> Graphics Configuration --> Internal Graphics          <Disabled>
 
 3.7 Intel Arrow Lake S
 ----------------------
