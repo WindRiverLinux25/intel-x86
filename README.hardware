@@ -19,10 +19,12 @@ This BSP supports the following boards:
 	+ Intel Harcuvar platform: Atom Processor, Denverton-NS SoC, (Harcuvar)
 	+ Intel Meteor Lake H: Intel(R) Core(TM) Ultra 7 155H processors
 	+ Intel Arrow Lake S: Intel(R) Core(TM) Ultra 7 265K processors
+	+ Intel Alder Lake N: Intel(R) Atom(TM) x7425E processor
 
 2. Change History
 =================
 
+	- 2025/10 (LINUXPG-2746) Add Alder Lake N support
 	- 2025/09 (LINUXPG-2689) Add Arrow Lake S support
 	- 2025/09 (LINUXPG-2690) Add Meteor Lake H support
 	- 2025/09 (LINUXPG-2590) Add Denverton-NS support
@@ -735,6 +737,107 @@ The following features are not supported and not validated.
 ~~~~~~~~~~~~~~~~~~
 
 See 2) and 3) in Section of Common Known Issues.
+
+3.8 Intel Alder Lake N
+----------------------
+
+Intel Atom processors x7000E Series feature the Efficient-core and Intel UHD Graphics
+driven by Xe architecture as 12th Gen Intel Core processors.
+
+3.8.1 Validated Board Info
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This BSP is only validated in the following environment. If you use this BSP
+in a different environment it may possibly have some issues.
+
+[BIOS Info]
+	Vendor: Intel Corporation
+	Version: TWLNFWI1.R00.6023.A00.2501091408
+	Release Date: 01/09/2025
+
+[CPU Info]
+	BIOS Model name:     Intel(R) Atom(TM) x7425E CPU
+	BIOS CPU family:     43
+	CPU family:          6
+	Model:               190
+	Thread(s) per core:  1
+	Core(s) per socket:  4
+	Socket(s):           1
+	Stepping:            0
+
+[Board Info]
+	Alder Lake-N DDR5 CRB FAB A
+
+3.8.2 Supported Features
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+	o Bus
+		+ PCI-Express
+		+ I2C/SMBus
+			+ SMBus [0c05]: Intel Corporation Device [8086:54a3]
+
+	o Network
+		+ Ethernet controller [0200]: Intel Corporation Device [8086:54ac]
+		+ Ethernet controller [0200]: Intel Corporation Ethernet Controller (2) I225-IT [8086:0d9f] (rev 03)
+		+ WiFi & Bluetooth
+			+ M.2 Key E: Intel Corporation Wi-Fi 6 AX210 with Bluetooth
+
+	o USB (up to USB 3.2 Gen1)
+		+ USB Host Mode
+			+ USB controller [0c03]: Intel Corporation Device [8086:464e]
+			+ USB controller [0c03]: Intel Corporation Device [8086:54ed]
+		+ USB Device Mode
+			+ USB controller [0c03]: Intel Corporation Device [8086:465e]
+			+ USB controller [0c03]: Intel Corporation Device [8086:54ee]
+
+	o Storage
+		+ SATA
+			+ SATA controller [0106]: Intel Corporation Device [8086:54d3] (prog-if 01 [AHCI 1.0])
+		+ MMC/SD
+			+ SD Host controller [0805]: Intel Corporation Device [8086:54c4] (prog-if 01)
+		+ NVME
+
+	o Power Management
+		+ CPU Freq: ACPI P-state
+		+ CPU Idle: ACPI C-state
+		+ ACPI S0
+		+ ACPI S3
+		+ ACPI S4
+
+	o Multimedia
+		+ Graphics: VGA compatible controller [0300]: Intel Corporation Alder Lake-N [UHD Graphics] [8086:46d1]
+			+ DP
+			+ HDMI
+		+ Audio:
+			+ Audio Codec - ALC245
+			+ Audio via DP
+			+ Audio via HDMI
+
+	o Misc Devices
+		+ UART: 8250/16550A compatible serial port
+		+ Input device
+			+ USB mouse & keyboard
+		+ Watchdog: WDAT (Watchdog Action Table)
+
+	o EDAC (Error Detection And Correction)
+
+	o Intel RAPL (Running Average Power Limit)
+
+3.8.3 Unsupported Feature
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following feature is not supported and not validated.
+
+	x PCH TSN port 2.5G Link speed is not supported due to 1G PHY limitation.
+
+3.8.4 Notes
+~~~~~~~~~~~
+
+1) To use watchdog, TCO timer must be enabled in BIOS.
+
+Intel Advanced Menu -->  PCH-IO Configuration --> Enable TCO Timer    <Enabled>
+
+2) Only PCIe 3.0 x1 is supported on NVME port due to hardware design of the CRB.
 
 4. Common Known Issues
 ======================
