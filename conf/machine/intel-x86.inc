@@ -20,6 +20,7 @@ MACHINE_EXTRA_RRECOMMENDS += "linux-firmware-i915"
 MACHINE_EXTRA_RRECOMMENDS += "linux-firmware-ibt-12-16"
 MACHINE_EXTRA_RRECOMMENDS += "linux-firmware-rtl8723"
 MACHINE_EXTRA_RRECOMMENDS += "linux-firmware-ibt-17"
+MACHINE_EXTRA_RRECOMMENDS += "linux-firmware-ibt-18"
 MACHINE_EXTRA_RRECOMMENDS += "linux-firmware-iwlwifi-9000"
 MACHINE_EXTRA_RRECOMMENDS += "linux-firmware-ice"
 
