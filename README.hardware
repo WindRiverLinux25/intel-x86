@@ -12,6 +12,7 @@ Table of Contents
 
 This BSP supports the following boards:
 
+	+ Intel Raptor Lake S: 13th Gen Intel(R) Core(TM) i9-13900K processor
 	+ Intel Elkhart Lake: Intel Atom(R) x6425RE Processor
 	+ Intel Ice Lake-SP: 3rd Gen Intel(R) Xeon(R) Scalable processor
 	+ Intel Idaville LCC: Intel Xeon D Processors, Ice Lake-D SoC, (IOTG: Brighton City)
@@ -25,6 +26,7 @@ This BSP supports the following boards:
 2. Change History
 =================
 
+	- 2026/01 (LINUXPG-2813) Add Raptor Lake S support
 	- 2025/12 (LINUXPG-2812) Add Elkhart Lake support
 	- 2025/10 (LINUXPG-2746) Add Alder Lake N support
 	- 2025/09 (LINUXPG-2689) Add Arrow Lake S support
@@ -946,6 +948,103 @@ acpi-cpufreq, nor by intel_pstate.
     I2C7      <Host owned with pin muxed>
     CAN0      <Host owned with pin muxed>
     CAN1      <Host owned with pin muxed>
+
+3.10 Intel Raptor Lake S
+------------------------
+
+Raptor Lake (RPL) is Intel's successor to Alder Lake, an enhanced Intel 7-process
+based microarchitecture for mainstream workstations, desktops, and mobile devices.
+
+RPL-S is the codename of Intel Core Desktop Processor.
+
+3.10.1 Validated Board Info
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[BIOS info]
+	Vendor: Intel Corporation
+	Version: RPLSFWI1.R00.3301.A00.2207261338
+	Release Date: 07/26/2022
+
+[Processor Info]
+	CPU family:          6
+	Model:               183
+	Model name:          13th Gen Intel(R) Core(TM) i9-13900K @ 5.4GHz
+	Stepping:            1
+
+[Board Info]
+	RPL-S ADP-S DDR5 UDIMM RVP
+
+3.10.2 Supported Features
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	o Bus
+		+ SMBus:
+			+ Intel Corporation Raptor Lake-S PCH SMBus Controller [8086:7a23] (rev 11)
+		+ PCI-Express
+
+	o Network
+		+ Intel Gigabit Ethernet:
+			+ Intel Corporation e1000e Device [8086:0dc8] (rev 11)
+		+ Wireless & Bluetooth
+			+ Intel Corporation Raptor Lake-S PCH CNVi WiFi [8086:7a70] (rev 11) with Intel WiFi 6E AX211 160MHz [8086:0090]
+
+	o USB
+		+ Intel Corporation Raptor Lake USB 3.2 Gen 2x2 (20 Gb/s) XHCI Host Controller [8086:7a60] (rev 11)
+
+	o Storage
+		+ SATA:
+			+ Intel Corporation Raptor Lake SATA AHCI Controller [8086:7a62] (rev 11)
+		+ NVME:
+			+ Non-Volatile memory controller [0108]: Sandisk Corp WD PC SN810 / Black SN850 NVMe SSD [15b7:5011] (rev 01)
+
+	o Multimedia
+		+ Graphics: Intel Corporation Raptor Lake-S GT1 [UHD Graphics 770] [8086:a780] (rev 04)
+			+ Display Port
+		+ Audio: Intel Corporation Raptor Lake High Definition Audio Controller [8086:7a50] (rev 11)
+			+ Audio Codec - ALC245 3.5mm jack
+			+ Audio via DP
+
+	o Power Management
+		+ CPU Freq: ACPI P-state
+		+ CPU Idle: ACPI C-state
+		+ ACPI S0
+		+ ACPI S3
+		+ ACPI S4
+
+	o Misc Devices
+		+ UART: 8250/16550A compatible serial port
+		+ RTC: PC-style CMOS RTC
+		+ Input device
+			+ USB mouse & keyboard
+		+ Watchdog: WDAT (Watchdog Action Table)
+		+ HW Monitor: Intel CPU core temperature sensor
+
+	o TPM2.0
+
+3.10.3 Time-Sensitive Networking
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+TSN (Time-Sensitive Networking) is supported by TSN AICs Phase 2 card on Raptor Lake S IOTG Version.
+
+[BIOS info]
+	Vendor: Intel Corporation
+	Version: RPLISFI1.R00.5134.A05.2408190644
+	Release Date: 08/19/2024
+
+[Processor Info]
+	CPU family:          6
+	Model:               183
+	Model name:          13th Gen Intel(R) Core(TM) i7-13700E @ 4.6GHz
+	Stepping:            1
+
+[Board Info]
+	Raptor Lake -S DDR5 SODIMM 1DPC IOTG RVP (SR17) with TSN AIC Phase 2
+
+[Supported device]
+	Ethernet controller [0200]: Intel Corporation Device [8086:7aad] (rev 11) with PHY mv88e2110
+
+To add TSN support in WRLinux image, please include feature/intel-tsn in your project.
+To be better use IOTG TSN Reference SW, it is recommended to build image with wrlinux-graphics distro.
 
 4. Common Known Issues
 ======================
