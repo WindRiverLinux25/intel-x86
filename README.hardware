@@ -751,9 +751,6 @@ driven by Xe architecture as 12th Gen Intel Core processors.
 3.8.1 Validated Board Info
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This BSP is only validated in the following environment. If you use this BSP
-in a different environment it may possibly have some issues.
-
 [BIOS Info]
 	Vendor: Intel Corporation
 	Version: TWLNFWI1.R00.6023.A00.2501091408
@@ -851,9 +848,6 @@ of Things(IoT) Applications.
 
 3.9.1 Validated Board Info
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-This BSP is only validated in the following environment. If you use this BSP
-in a different environment it may have some issues.
 
 [BIOS Info]
 	Vendor: Intel Corporation
