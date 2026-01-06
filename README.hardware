@@ -12,6 +12,7 @@ Table of Contents
 
 This BSP supports the following boards:
 
+	+ Intel Tiger Lake: 11th Gen Intel(R) Core(TM) processors (Tiger Lake UP3 and Tiger Lake UP4)
 	+ Intel Raptor Lake S: 13th Gen Intel(R) Core(TM) i9-13900K processor
 	+ Intel Elkhart Lake: Intel Atom(R) x6425RE Processor
 	+ Intel Ice Lake-SP: 3rd Gen Intel(R) Xeon(R) Scalable processor
@@ -26,6 +27,7 @@ This BSP supports the following boards:
 2. Change History
 =================
 
+	- 2026/02 (LINUXPG-2814) Add Tiger Lake UP3 and UP4 support
 	- 2026/01 (LINUXPG-2813) Add Raptor Lake S support
 	- 2025/12 (LINUXPG-2812) Add Elkhart Lake support
 	- 2025/10 (LINUXPG-2746) Add Alder Lake N support
@@ -1040,6 +1042,189 @@ TSN (Time-Sensitive Networking) is supported by TSN AICs Phase 2 card on Raptor 
 To add TSN support in WRLinux image, please include feature/intel-tsn in your project.
 To be better use IOTG TSN Reference SW, it is recommended to build image with wrlinux-graphics distro.
 
+3.11 Intel Tiger Lake UP3
+-------------------------
+
+11th Gen Intel(R) Core(TM) processors (Tiger Lake UP3) deliver a balanced
+combination of performance and power efficiency, targeting mainstream
+mobile and embedded platforms. Built on Intel 10nm process technology,
+they integrate Intel Iris Xe Graphics, PCI Express 4.0, and
+Thunderbolt 4 / USB4 connectivity.
+
+3.11.1 Validated Board Info
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[BIOS Info]
+	Vendor: Intel Corporation
+	Version: TGLSFWI1.R00.4113.A02.2103110224
+	Release Date: 03/11/2021
+
+[CPU Info]
+	Vendor ID: GenuineIntel
+	CPU family: 6
+	Model: 140
+	Model name: 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz
+	Stepping: 1
+	QDF: QVBA
+
+[Board Info]
+	Tiger Lake UP3 4+2 DDR4 RVP
+	Tiger Lake PCH-LP
+
+3.11.2 Supported Features
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	o Bus
+		+ I2C/SMBus:
+			+ Intel Corporation Tiger Lake-LP SMBus Controller [8086:a0a3] (rev 20)
+		+ PCI Express 4.0
+
+	o Network
+		+ Intel E1000E Gigabit Ethernet:
+			+ Intel Corporation Ethernet Connection (13) I219-V [8086:15fc] (rev 20)
+		+ Wireless
+			+ Intel Corporation Wi-Fi 6 AX201 [8086:a0f0] (rev 20)
+			+ Intel Corporation Wi-Fi 5 (802.11ac) Wireless-AC 9x6x [Thunder Peak] [8086:2526] (rev 09)
+		+ Bluetooth
+			+ Intel Corp. AX201 Bluetooth
+			+ Intel Corp. Wireless-AC 9260 Bluetooth
+
+	o USB
+		+ Intel Corporation Tiger Lake-LP USB 3.2 Gen 2x1 xHCI Host Controller [8086:a0ed] (rev 20)
+		+ Intel Corporation Tiger Lake-LP Thunderbolt USB Controller [8086:9a13] (rev 01)
+
+	o Storage
+		+ NVM Express: Intel Corporation SSD 660P Series [8086:f1a8] (rev 03)
+
+	o Multimedia
+		+ Graphics: Intel Corporation TigerLake-LP GT2 [Iris Xe Graphics] [8086:9a49] (rev 01)
+			+ eDP
+			+ HDMI
+			+ DP over USB-C
+		+ Audio: Intel Corporation Tiger Lake-LP Smart Sound Technology Audio Controller [8086:a0c8] (rev 20)
+			+ HDMI audio
+			+ DisplayPort audio over USB-C
+
+	o Thunderbolt
+		+ Intel Corporation Tiger Lake-LP Thunderbolt NHI #0 [8086:9a1b] (rev 01)
+		+ Intel Corporation Tiger Lake-LP Thunderbolt NHI #1 [8086:9a1d] (rev 01)
+
+	o Power Management
+		+ CPU Freq: ACPI P-state
+		+ CPU Idle: ACPI C-state
+		+ ACPI S0
+		+ ACPI S3
+		+ ACPI S4
+
+	o Misc Devices
+		+ UART: 8250/16550A compatible serial port
+		+ RTC: PC-style CMOS RTC
+		+ Input device
+			+ PS2 mouse & keyboard
+			+ USB mouse & keyboard
+		+ Watchdog: WDAT (Watchdog Action Table)
+		+ HW Monitor: Intel CPU core temperature sensor
+
+	o TPM2.0
+
+3.11.3 Known Issues
+~~~~~~~~~~~~~~~~~~~
+
+See Common Known Issues 5).
+
+3.12 Intel Tiger Lake UP4
+-------------------------
+
+11th Gen Intel(R) Core(TM) processors (Tiger Lake UP4) are optimized for
+ultra-low power operation, enabling thin-and-light and fanless platform
+designs. Built on Intel 10nm process technology, they integrate Intel
+Iris Xe Graphics, PCI Express 4.0, and Thunderbolt 4 / USB4 connectivity.
+
+3.12.1 Validated Board Info
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+[BIOS Info]
+	Vendor: Intel Corporation
+	Version: TGLSFWI1.R00.3313.A02.2007300246
+	Release Date: 07/30/2020
+
+[CPU Info]
+	Vendor ID: GenuineIntel
+	CPU family: 6
+	Model: 140
+	Model name: 11th Gen Intel(R) Core(TM) i7-1180G7 @ 1.30GHz
+	Stepping: 1
+	QDF: QVBU
+
+[Board Info]
+	TigerLake Y LPDDR4x T4 Crb
+	Tiger Lake PCH-LP
+
+3.12.2 Supported Features
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	o Bus
+		+ I2C/SMBus:
+			+ Intel Corporation Tiger Lake-LP SMBus Controller [8086:a0a3] (rev 20)
+		+ PCI Express 4.0
+
+	o Network
+		+ Intel E1000E Gigabit Ethernet:
+			+ Intel Corporation Ethernet Connection (13) I219-V [8086:15fc] (rev 20)
+		+ Wireless
+			+ Intel Corporation Wi-Fi 6 AX201 [8086:a0f0] (rev 20)
+		+ Bluetooth
+			+ Intel Corp. AX201 Bluetooth
+
+	o USB
+		+ Intel Corporation Tiger Lake-LP USB 3.2 Gen 2x1 xHCI Host Controller [8086:a0ed] (rev 20)
+		+ Intel Corporation Tiger Lake-LP Thunderbolt USB Controller [8086:9a13] (rev 01)
+
+	o Storage
+		+ NVM Express: Intel Corporation SSD 660P Series [8086:f1a8] (rev 03)
+		+ NVM Express: Sandisk Corp SanDisk Extreme Pro / WD Black SN750 / PC SN730 / Red SN700 NVMe SSD [15b7:5006]
+
+	o Multimedia
+		+ Graphics: Intel Corporation Tiger Lake-UP4 GT2 [Iris Xe Graphics] [8086:9a40] (rev 01)
+			+ eDP
+
+	o Thunderbolt
+		+ Intel Corporation Tiger Lake-LP Thunderbolt NHI #0 [8086:9a1b] (rev 01)
+		+ Intel Corporation Tiger Lake-LP Thunderbolt NHI #1 [8086:9a1d] (rev 01)
+
+	o Power Management
+		+ CPU Freq: ACPI P-state
+		+ CPU Idle: ACPI C-state
+		+ ACPI S0
+		+ ACPI S3
+		+ ACPI S4
+
+	o Misc Devices
+		+ UART: 8250/16550A compatible serial port
+		+ RTC: PC-style CMOS RTC
+		+ Input device
+			+ PS2 mouse & keyboard
+			+ USB mouse & keyboard
+		+ Watchdog: WDAT (Watchdog Action Table)
+		+ HW Monitor: Intel CPU core temperature sensor
+
+	o TPM2.0
+
+3.12.3 Unsupported Features
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following features are not supported and have not been validated.
+
+	x DisplayPort over USB-C
+	x Micro HDMI
+
+To make the above two features functional, hardware rework is required.
+
+3.12.4 Known Issues
+~~~~~~~~~~~~~~~~~~~
+
+See Common Known Issues 5).
+
 4. Common Known Issues
 ======================
 
@@ -1110,3 +1295,12 @@ Because DEV_DAX_PMEM has the following dependencies.
     DEV_DAX_PMEM depends on LIBNVDIMM && NVDIMM_DAX && DEV_DAX
     DEV_DAX depends on TRANSPARENT_HUGEPAGE
     TRANSPARENT_HUGEPAGE depends on HAVE_ARCH_TRANSPARENT_HUGEPAGE && !PREEMPT_RT_FULL
+
+5) You may see "i8042: Warning: Keylock active" in kernel log. The warning comes from
+kernel if the bit 4 of the Status Register of PS2 controller is not "1". That bit
+is chipset specific and may have different meanings for different vendor. Or that
+bit was incorrectly set by BIOS/ACPI.
+
+As long as the PS2 keyboard and PS2 mouse are working normally, the warning can be
+ignored. If you don't want to see this warning in kernel log, you can add "i8042.unlock"
+to kernel boot command line.
