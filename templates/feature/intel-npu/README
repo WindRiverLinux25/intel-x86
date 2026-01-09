@@ -1,0 +1,48 @@
+intel-npu
+=========
+This feature adds support for Neural Processing Unit in intel-x86 BSP.
+
+An NPU (Neural Processing Unit) is specialized hardware designed to run
+AI and machine-learning workloads efficiently, especially:
+	- Low power consumption
+  - Continuous or background AI tasks
+  - On-device inference (no cloud needed)
+
+Intel NPU is built into some modern Intel CPUs, mainly under the Intel
+Core Ultra (Meteor Lake, Lunar Lake, Arrow Lake) platforms.
+
+To enable this feature, please add the following configuration parameter:
+
+    --template=feature/intel-npu
+
+The Compiler in Driver (CiD) is a set of C++ libraries designed for Intel Neural Processing
+Unit (NPU) devices, providing a common API that allows the User Mode Driver to access compiler
+functions through the vcl* interface methods.
+
+
+How to build Compiler in Driver on target board.
+
+	$ wget https://github.com/git-lfs/git-lfs/releases/download/v3.6.1/git-lfs-linux-amd64-v3.6.1.tar.gz
+	$ tar -zxf git-lfs-linux-amd64-v3.6.1.tar.gz
+	$ cd git-lfs-3.6.1
+	$ cp git-lfs  /usr/bin
+
+	$ git clone https://github.com/intel/linux-npu-driver.git
+	$ cd linux-npu-driver
+	$ git checkout tags/v1.17.0
+	$ git submodule update --init --recursive
+	$	cmake -B build -S . -DENABLE_NPU_COMPILER_BUILD=ON
+	$ cd build
+	$ make npu_compiler_source
+	$ sed -i '/add_subdirectory(thirdparty EXCLUDE_FROM_ALL)/a \
+	  add_compile_options(-Wno-error=maybe-uninitialized)\n\
+	  add_compile_options(-Wno-error=dangling-reference)\n\
+	  add_compile_options(-Wno-error=template-id-cdtor)' compiler/src/npu_compiler/CMakeLists.txt
+	$ make openvino_source
+	$ make npu_compiler_openvino_source
+	$ make npu_compiler_build -j$(nproc)
+	$ cp ./compiler/build_npu_compiler/bin/intel64/Release/libnpu_driver_compiler.so /lib64
+
+#@TYPE: Wrtemplate
+#@NAME: intel-npu
+#@DESCRIPTION: Add Intel NPU support to the image
