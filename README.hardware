@@ -607,6 +607,9 @@ The following BSP features are validated and supported.
 
 	o EDAC
 
+	o Intel Neural Processing Unit
+		+ Intel Corporation Meteor Lake NPU [8086:7d1d] (rev 04)
+
 3.6.3 Unsupported Features
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -614,7 +617,6 @@ The following features are not supported and not validated.
 
 	x 3.5mm audio jack (only supported by Soundwire Audio)
 	x Intel Corporation Meteor Lake-P Gaussian & Neural-Network Accelerator [8086:7e4c] (rev 20)
-	x Intel Corporation Meteor Lake NPU [8086:7d1d] (rev 04)
 	x ACPI S3 (not supported by BIOS)
 
 3.6.4 Known Issues
@@ -731,12 +733,14 @@ based on the Intel Core Ultra 200S Series Processors.
 		+ Watchdog: WDAT (Watchdog Action Table)
 		+ HW Monitor: Intel CPU core temperature sensor
 
+	o Intel Neural Processing Unit
+		+ Intel Corporation Arrow Lake NPU [8086:ad1d] (rev 01)
+
 3.7.3 Unsupported Features
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The following features are not supported and not validated.
 
-	x Intel Corporation Meteor Lake NPU [8086:7d1d] (rev 05)
 	x ACPI S3 (not supported by BIOS)
 
 3.7.4 Known Issues
