@@ -31,7 +31,7 @@ How to build Compiler in Driver on target board.
 	$ cd linux-npu-driver
 	$ git checkout tags/v1.17.0
 	$ git submodule update --init --recursive
-	$	cmake -B build -S . -DENABLE_NPU_COMPILER_BUILD=ON
+	$ cmake -B build -S . -DENABLE_NPU_COMPILER_BUILD=ON
 	$ cd build
 	$ make npu_compiler_source
 	$ sed -i '/add_subdirectory(thirdparty EXCLUDE_FROM_ALL)/a \
