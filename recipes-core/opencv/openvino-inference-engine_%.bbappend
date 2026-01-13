@@ -12,6 +12,8 @@ LIC_FILES_CHKSUM += "file://thirdparty/level_zero/level-zero/LICENSE;md5=97957be
                      file://src/plugins/intel_npu/thirdparty/yaml-cpp/LICENSE;md5=6a8aaf0595c2efc1a9c2e0913e9c1a2c \
                     "
 
+NPU_INSTALL_CMD = "find ${B}/src/plugins/intel_npu/src/plugin/cross-compiled/ -type f -name \"*_disp.cpp\" -exec sed -i -e \"s%${S}%${TARGET_DBGSRC_DIR}%g\" {} + || bberror \"Failed to update dispatcher source paths\""
+
 do_install:append() {
-    find ${B}/src/plugins/intel_npu/src/plugin/cross-compiled/ -type f -name "*_disp.cpp" -exec sed -i -e "s%${S}%${TARGET_DBGSRC_DIR}%g" {} + || bberror "Failed to update dispatcher source paths"
+    ${@bb.utils.contains('PACKAGECONFIG', 'intel-npu', '${NPU_INSTALL_CMD}', '', d)}
 }
